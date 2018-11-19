@@ -1,33 +1,47 @@
+
 # vue-datatableoi
 
-Kullanım şekli
-<data-table-oi :show="10" :columns="kolonlar" :url="resource_url"></data-table-oi>
+## Kullanım şekli
+
+    <data-table-oi :show="10" :columns="kolonlar" :url="resource_url"></data-table-oi>
+
 ----------------------
-kolonlar : [{name:"Konu",field:"konusu"},
-            {name:"Tarihi",field:"rezerve_tarihi",sort:true},
-            {name:"Başlama Saati",field:"baslama_saati", filter : 'filterName' }] => filterName global olarak tanımlanmış bir Vue.filter objesi olmalı.
+### Alanlar
+
+    kolonlar : [{name:"Konu",field:"konusu"},
+                {name:"Tarihi",field:"rezerve_tarihi",sort:true},
+                {name:"Başlama Saati",field:"baslama_saati", filter : 'filterName' }] => filterName global olarak tanımlanmış bir Vue.filter objesi olmalı.
                                                                                          Vue.filter('filterName', function(value){ return value+'...' }); //Şeklinde
-resource_url: 'http://localhost:8080/Uygulama/rest/liste.json' => POST istek olmalı.
-loadingImage : "./assets/img/loading.gif"
+    resource_url: 'http://localhost:8080/Uygulama/rest/liste.json' => POST istek olmalı.
+
+    loadingImage : "./assets/img/loading.gif"
+
 ----------------------------------------------------------------------------------------
-Dinamik istekler için backend yapısı
+### Dinamik istekler için backend yapısı
   - Gönderilecek İstek Yapısı
-    	@RequestMapping(value="/liste.json",method=RequestMethod.POST)
-      public ResponseEntity<ListNm> rezervasyonlistesi(
-          @RequestParam(value = "page", required = false) String page,
-          @RequestParam(value = "size", required = false) String size,   => Tek seferde kaç tane isteniyorsa (10)
-          @RequestParam(value = "sort", required = false) String sort,
-          @RequestParam(value = "sorttype", required = false) String sorttype,
-          @RequestParam(value = "search", required = false) String search)
+    	
+
+>     @RequestMapping(value="/liste.json",method=RequestMethod.POST)
+>           public ResponseEntity<ListNm> rezervasyonlistesi(
+>               @RequestParam(value = "page", required = false) String page,
+>               @RequestParam(value = "size", required = false) String size,   => Tek seferde kaç tane isteniyorsa (10)
+>               @RequestParam(value = "sort", required = false) String sort,
+>               @RequestParam(value = "sorttype", required = false) String sorttype,
+>               @RequestParam(value = "search", required = false) String search)
+
   - DönüşTipi (ListNm)
-      public class ListNm {
-          private String current_page;
-          private String last_page;
-          private String size;            =>tek seferde kaç tane gönderilecekse (10)
-          private ArrayList<nDatam> data;
-      }
+  
+
+>     public class ListNm {
+>           private String current_page;
+>           private String last_page;
+>           private String size;            =>tek seferde kaç tane gönderilecekse (10)
+>           private ArrayList<nDatam> data;  
+>     }
+
 ------------------------------------------------------------------------------------------
-Backend işlemleri için yardımcı olacak bir açıklama
+
+### Backend işlemleri için yardımcı olacak bir açıklama
      ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
      || Integer totalCount = service.getTotalCount(search);
      || Integer pageCount = totalCount / size;
@@ -41,7 +55,7 @@ Backend işlemleri için yardımcı olacak bir açıklama
      || listNm.setData(nm);
      ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ------------------------------------------------------------------------------------------
-Backend DB İşlemleri için yardımcı olacak bir açıklama
+### Backend DB İşlemleri için yardımcı olacak bir açıklama
      ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
      || public Integer getTotalCount(String search){
      ||    Query query;
