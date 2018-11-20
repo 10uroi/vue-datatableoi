@@ -105,3 +105,33 @@
      || 		return (ArrayList<nDatam>) query.list();
      || }
      |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+<hr>
+
+# vue-datatableoi eager
+ ## KULLANIM  
+ Bu kullanılırsa tüm datalar tek seferde alınır.
+ ##
+ ### Kullanım şekli 
+    <data-table-oi :show="10" :columns="kolonlar" :url="resource_url"></data-table-oi>  
+
+----------------------  
+
+    kolonlar : [{name:"Konu",field:"konusu"},  
+     {name:"Tarihi",field:"rezerve_tarihi",sort:true},  
+     {name:"Başlama Saati",field:"baslama_saati", filter : 'filterName' }] => filterName global olarak tanımlanmış bir Vue.filter objesi olmalı.  
+     Vue.filter('filterName', function(value){ return value+'...' }); //Şeklinde  
+    resource_url: 'http://localhost:8080/Uygulama/rest/liste.json' => POST istek olmalı. Tüm data gelmeli.  
+    loadingImage : "./assets/img/loading.gif"  
+
+----------------------------------------------------------------------------------------  
+Dinamik istekler için backend yapısı  
+ - Gönderilecek İstek Yapısı  
+  
+
+>     @RequestMapping(value="/liste.json",method=RequestMethod.POST)  
+>      public ResponseEntity<ListNm> rezervasyonlistesi()  
+
+- DönüşTipi (ListNm)  
+>      public class ListNm {  
+>          private ArrayList<nDatam> data;  
+>      }
