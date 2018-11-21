@@ -19,14 +19,14 @@ Vue.component("data-table-oi", {
                     <thead style="background-color: #24C5D9;opacity: 0.7;padding: 0.75rem 1.25rem;margin-bottom: 0;border-bottom: 1px solid #eeeeee;box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2); ">
                       <tr>
                         <th v-for="column in columns" @click="sorted(column)" :style="{cursor : column.sort?'pointer':'default'}">
-                            <a href="#" style="color: #000" v-if="column.sort"><b>{{column.name}}</b><img style="width: 15px;float: right;margin-top: 3px" src="../assets/plugins/datatableoi/sort.png"></a>
-                            <a href="#" style="color: #000; cursor: default" v-else><b>{{column.name}}</b></a>
+                            <a href="#" style="color: #000" v-if="column.sort"><b v-html="column.name"></b><img style="width: 15px;float: right;margin-top: 3px" src="../assets/plugins/datatableoi/sort.png"></a>
+                            <a href="#" style="color: #000; cursor: default" v-else><b v-html="column.name"></b></a>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="data in datas">
-                        <td v-for="column in columns"><span v-for="fi in Object.keys(data)" v-if="column.field==fi">{{data[column.field]}}</span></td>
+                        <td v-for="column in columns"><span v-for="fi in Object.keys(data)" v-if="column.field==fi" v-html="data[column.field]"></span></td>
                       </tr>
                      </tbody>
                 </table>
@@ -164,7 +164,7 @@ Vue.component("data-table-oi", {
 
 //KULLANIM
 /***********************************************************************************************************************
- * Onur Ciner - v.1.0 - DataTableOI
+ * Onur Ciner - v.1.1 - DataTableOI
  *
  * Kullanım şekli
  *
